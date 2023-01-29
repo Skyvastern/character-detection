@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Main/World/Solid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main/World/main_env.tres" type="Environment" id=2]
+[ext_resource path="res://Main/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main/Enemy/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main/Main.gd" type="Script" id=5]
+
+[node name="Main" type="Node"]
+script = ExtResource( 5 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -10, 22.5, 22.5 )
+
+[node name="World" type="CSGCombiner" parent="."]
+calculate_tangents = false
+use_collision = true
+collision_layer = 4
+
+[node name="Floor" parent="World" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 17.5 )
+width = 90.0
+height = 5.0
+depth = 70.0
+
+[node name="Wall" parent="World" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57.5, 5, 32.5 )
+width = 5.0
+height = 10.0
+depth = 100.0
+
+[node name="Wall2" parent="World" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 5, 17.5 )
+width = 5.0
+height = 10.0
+depth = 70.0
+
+[node name="Wall3" parent="World" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 5, -15 )
+width = 5.0
+height = 10.0
+depth = 90.0
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -27.5, 2.5, -3.5 )
+cam_path = NodePath("../Camera")
+
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -10, 2.5, 3.5 )
